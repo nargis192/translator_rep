@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import './App.css';
 
 function App() {
-  
+  const [language,setLanguage]=useState("hi");
+// console.log(language);
   return (
     <div className="App">
       <h1>Language Translator</h1>
@@ -10,9 +12,9 @@ function App() {
         <textarea id="inputTextArea" placeholder="Enter text to translate"></textarea>
         <div id="outputLanguageSelector">
         <p>Select the Language: </p>
-        <select >
-          <option value="hindi">Hindi</option>
-          <option value="english">English</option>
+        <select onChange={(e)=>setLanguage(e.target.value)} value={language}>
+          <option value="hi">Hindi</option>
+          <option value="en">English</option>
         </select>
         </div>
       </div>
@@ -20,13 +22,13 @@ function App() {
       <div className="output-container">
        
         <textarea id="outputTextArea" readOnly placeholder='Translated Text'></textarea>
-        <div id="outputLanguageSelector">
+        {/* <div id="outputLanguageSelector">
         <p>Select the Language: </p>
         <select >
           <option value="hindi">Hindi</option>
           <option value="english">English</option>
         </select>
-        </div>
+        </div> */}
         
       </div>
       </div>
