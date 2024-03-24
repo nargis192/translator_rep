@@ -1,25 +1,45 @@
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Language Translator</h1>
+      <div className='upper-class'>
+      <div className="input-container">
+        <textarea id="inputTextArea" placeholder="Enter text to translate"></textarea>
+        <div id="outputLanguageSelector">
+        <p>Select the Language: </p>
+        <select >
+          <option value="hindi">Hindi</option>
+          <option value="english">English</option>
+        </select>
+        </div>
+      </div>
+
+      <div className="output-container">
+       
+        <textarea id="outputTextArea" readOnly placeholder='Translated Text'></textarea>
+        <div id="outputLanguageSelector">
+        <p>Select the Language: </p>
+        <select >
+          <option value="hindi">Hindi</option>
+          <option value="english">English</option>
+        </select>
+        </div>
+        
+      </div>
+      </div>
+      <div className="button-container">
+        <button >Translate</button>
+      </div>
+      
+      
+     
     </div>
   );
 }
 
 export default App;
+
+
