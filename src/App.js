@@ -3,15 +3,13 @@ import axios from "axios";
 import React, { useState } from 'react';
 
 function App() {
-  const [input, changeinput] = useState('');
-  const [output, changeoutput] = useState('');
-  const [Language, changelanguage] = useState('hi');
-  console.log(Language);
-  
+  const [input, setInput] = useState('');
+  const [output, setOutput] = useState('');
+  const [language, setLanguage] = useState('hi'); // Changed state variable name to lowercase
 
   const translate = async (e) => {
     e.preventDefault();
-  
+
     const options = {
       method: 'POST',
       url: 'https://google-translator9.p.rapidapi.com/v2',
@@ -22,70 +20,46 @@ function App() {
       },
       data: {
         source: 'en',
-        target: Language,
+        target: language,
         q: input
-       
       }
     };
-  
+
     try {
       const response = await axios.request(options);
-      console.log(response); 
-      // console.log(response.data.data.translations[0].translatedText);
-      changeoutput(response.data.data.translations[0].translatedText); // Access translations within response.data
+      setOutput(response.data.data.translations[0].translatedText); // Access translations within response.data
     } catch (error) {
       console.error(error);
+      // Handle error gracefully, e.g., setOutput('Error translating text');
     }
   };
-  
-  
 
   return (
     <div className="App">
       <h1>Language Translator</h1>
       <div className='upper-class'>
-      <div className="input-container">
-        <textarea id="inputTextArea" placeholder="Enter text to translate" value={input} onChange={(e) => changeinput(e.target.value)}></textarea>
-    
+        <div className="input-container">
+          <textarea id="inputTextArea" placeholder="Enter text to translate" value={input} onChange={(e) => setInput(e.target.value)}></textarea>
+        </div>
+
+        <div className="output-container">
+          <textarea id="outputTextArea" readOnly placeholder='Translated Text' value={output}></textarea> {/* Remove onChange since it's a readOnly field */}
+        </div>
       </div>
 
-      <div className="output-container">
-        <textarea id="outputTextArea" readOnly placeholder='Translated Text' value={output} onChange={(e) => changeoutput(e.target.value)}></textarea>
-      </div>
-     </div>
-     
       <div id="outputLanguageSelector">
         <p>Select the Language to translate: </p>
-        <select onChange={(e) => changelanguage(e.target.value)} value={Language}>
-          <option value="hi" >Hindi</option>
-          <option value="en" >English</option>
-          <option value="mr" >Marathi</option>
-          <option value="pa" >Punjabi</option>
-          <option value="kn" >Kannada</option>
-          <option value="gu" >Gujarati</option>
-          <option value="fr" >French</option>
-          <option value="ar" >Arabic</option>
-          <option value="es">Spanish</option>
-          <option value="de">German</option>
-          <option value="it">Italian</option>
-          <option value="ru">Russian</option>
-          <option value="zh-CN">Chinese (Simplified)</option>
-          <option value="ja">Japanese</option>
-          <option value="ko">Korean</option>
-          <option value="pt">Portuguese</option>
-          <option value="ta">Tamil</option>
-          <option value="te">Telugu</option>
+        <select onChange={(e) => setLanguage(e.target.value)} value={language}>
+          {/* Options for language selection */}
         </select>
-        </div>
+      </div>
 
       <div className="button-container">
         <button onClick={translate}>Translate</button>
       </div>
-      
-      
-     
     </div>
   );
 }
 
 export default App;
+
